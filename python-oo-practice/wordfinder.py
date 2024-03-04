@@ -33,3 +33,22 @@ class WordFinder:
     def random(self):
         """Return random word"""
         return random.choice(self.words)
+
+
+class RandomWordFinder(WordFinder):
+    """Word finder but special => excludes blanks
+    
+    >>> rwf = RandomWordFinder("newtxt.txt)
+    3 words read
+    >>> rwf.random() in ["apple","mango", "kale"]
+    True
+    >>> rwf.random() in ["apple","mango", "kale"]
+    True
+    >>> rwf.random() in ["apple","mango", "kale"]
+    True
+    """ 
+    def _readwords(self, filepath):
+        with open(filepath,"r") as file:
+            words =[line.strip() for line in file if line.strip() and not line.startswith("#")]
+        print(f"{len(words)} words read")
+        return words
